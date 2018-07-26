@@ -17,13 +17,29 @@ io.on("connection", (socket) => {
     console.log("New user connected.");
 
     socket.emit("newMessage", {
-        from: "kevin@exemple.com",
-        text: "My new Email!",
-        createdAt: 123
+        from: "Admin",
+        text: "Welcome to the chat app!",
+        createdAt: new Date().getTime()
     });
 
-    socket.on("createMessage", (newEmail) => {
-        console.log("createMessage", newEmail);
+    socket.broadcast.emit("newMessage", {
+        from: "Admin",
+        text: "A new user join the chat!",
+        createdAt: new Date().getTime()
+    });
+
+    socket.on("createMessage", (message) => {
+        console.log("createMessage", message);
+        // io.emit("newMessage", {
+        //     from: message.from,
+        //     text: message.text,
+        //     createdAt: new Date().getTime()
+        // });
+        socket.broadcast.emit("newMessage", {
+            from: "kevin@exemple.com",
+            text: "My new Email!",
+            createdAt: 123
+        });
     });
 
     socket.on("disconnect", () => {
