@@ -24,13 +24,12 @@ io.on("connection", (socket) => {
 
     socket.on("createMessage", (message, callback) => {
         console.log("createMessage", message);
-        // io.emit("newMessage", {
-        //     from: message.from,
-        //     text: message.text,
-        //     createdAt: new Date().getTime()
-        // });
         io.emit("newMessage", generateMessage(message.from, message.text));
         callback("This is from the server.");
+    });
+
+    socket.on("createLocationMessage", (location) => {
+        io.emit("newMessage", generateMessage("Admin", `${location.latitude}, ${location.longitude}.`));
     });
 
     socket.on("disconnect", () => {
