@@ -5,7 +5,7 @@ const socketIo = require("socket.io");
 const express  = require("express");
 
 var {generateMessage, generateLocationMessage} = require("./utils/message");
-
+var {isRealString} = require("./utils/validation");
 const publicPath = path.join(__dirname, "../public");
 const port = process.env.PORT || 3000;
 
@@ -21,6 +21,12 @@ io.on("connection", (socket) => {
     socket.emit("newMessage", generateMessage("Admin", "Welcome to the chat app!"));
 
     socket.broadcast.emit("newMessage", generateMessage("Admin", "A new user join the chat!"));
+
+    socket.on("join", (message, callback) => {
+        if (!isRealString(message.displayName) || !isRealString(message.roomName)){
+            callback("Display name or room name are not valid.");
+        }
+    });
 
     socket.on("createMessage", (message, callback) => {
         console.log("createMessage", message);
