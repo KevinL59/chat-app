@@ -21,6 +21,8 @@ socket.on("connect", function () {
     console.log("New connection to the server");
     var params = jQuery.deparam(window.location.search);
 
+    params.roomName = params.roomName.toLowerCase();
+
     socket.emit("join", params, function (err) {
         if (err) {
             alert(err);
@@ -83,6 +85,7 @@ jQuery("#message-form").on("submit", function (event) {
 });
 
 var locationButton = jQuery("#send-location");
+
 locationButton.on("click", function () {
     if(!navigator.geolocation) {
         return alert("Geolocation is not available on your brower.");
