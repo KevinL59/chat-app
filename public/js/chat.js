@@ -17,13 +17,22 @@ function scrollToBottom() {
     }
 }
 
+function isRealString (string) {
+    return typeof string == "string" && string.trim().length > 0;
+}
+
 socket.on("connect", function () {
     console.log("New connection to the server");
     var params = jQuery.deparam(window.location.search);
-
-    params.roomName = params.roomName.toLowerCase();
-
-    socket.emit("join", params, function (err) {
+    
+    if (!isRealString(params.roomName)){
+        params.roomName = params.roomNameList;
+    }
+    
+    socket.emit("join", {
+        displayName: params.displayName,
+        roomName: params.roomName.toLowerCase()
+    }, function (err) {
         if (err) {
             alert(err);
             window.location.href = "/";

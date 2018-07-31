@@ -9,22 +9,34 @@
 </head>
 <body class="centered-form">
     <div class="centered-form__form">
-        <form action="./chat.html">
+        <form action="chat.html">
             <div class="form-field">
                 <h3>Join a chat room.</h3>
             </div>
+
             <div class="form-field">
                 <label>Display name</label>
-                <input name="displayName" type="text" autofocus/>
+                <input name="displayName" type="text" autofocus autocomplete="off"/>
             </div>
-            <div class="form-field">
-                <label>Room name</label>
-                <input name="roomName" type="text"/>
+
+            <div class="form-field" id="room-name-select" style="display:none">
+                <label>Select an existing room</label>
+                <select id="room-name-list" name="roomNameList"> </select>
             </div>
+
             <div class="form-field">
-                <button>Join</button>
+                <label id="room-name-label">Room name</label>
+                <input name="roomName" type="text" autocomplete="off"/>
+            </div>
+
+            <div class="form-field">
+                <button id="join-button">Join</button>
             </div>
         </form>
     </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="./js/lib/jquery-3.3.1.min.js"></script>
+    <script src="./js/index.js"></script>
 </body>
 </html>
