@@ -1,9 +1,10 @@
 var moment = require("moment");
+var emojis = require("emojis");
 
 var generateMessage = (from, text) => {
     return {
         from,
-        text,
+        text: emojis.html(text, "./img/emojis/"),
         createdAt: moment().valueOf()
     };
 };

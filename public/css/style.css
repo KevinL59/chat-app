@@ -193,3 +193,8 @@
       margin-right: 0px;
     }
   }
+
+  .emoji {
+    margin-bottom: .25em;
+    vertical-align: middle;
+  }

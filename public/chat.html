@@ -17,13 +17,12 @@
 
             <div class="chat__footer">
                 <form id="message-form">
-                    <input name="message" type="text" placeholder="Message" autofocus autocomplete="off"/>
+                    <input id="name-input" name="message" type="text" autofocus autocomplete="off"/>
                     <button>Send</button>
                 </form>
 
                 <button id="send-location">Send location</button>
-            </div>
-            
+            </div> 
         </div>
 
         <script id="message-template" type="text/template">
@@ -33,7 +32,7 @@
                     <span>{{createdAt}}</span>
                 </div>
                 <div class="message__body">
-                    <p>{{text}}</p>
+                    <p id="text-message"></p>
                 </div>
             </li>
         </script>
@@ -57,6 +56,6 @@
         <script src="./js/lib/moment.js"></script>
         <script src="./js/lib/mustache.js"></script>
         <script src="./js/lib/deparam.js"></script>
-        <script src="./js/chat.js"></script>
+        <script src="./js/chat.js"></script>       
     </body>
 </html>
