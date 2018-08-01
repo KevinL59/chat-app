@@ -26,7 +26,7 @@ socket.on("connect", function () {
     var params = jQuery.deparam(window.location.search);
     
     if (!isRealString(params.roomName)){
-        params.roomName = params.roomNameList;
+        params.roomName = params.roomNameList || "";
     }
     
     socket.emit("join", {
@@ -34,8 +34,15 @@ socket.on("connect", function () {
         roomName: params.roomName.toLowerCase()
     }, function (err) {
         if (err) {
-            alert(err);
-            window.location.href = "/";
+            var template = jQuery("#alert-message").html();
+            var html = Mustache.render(template, {
+                message: err
+            });
+            jQuery("#alert").html(html);
+            jQuery("#alert").removeAttr("style");
+            setTimeout(function(){
+                window.location.href = "/";
+            }, 4000);  
         }
         else {
             console.log("No error.");

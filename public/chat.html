@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
         <title>Chat | WhatUp</title>
         <link rel="stylesheet" href="./css/style.css"></style>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     </head>
     <body class="chat">
         <div class="chat__sidebar">
@@ -13,6 +14,7 @@
         </div>
 
         <div class="chat__main">
+            <div id="alert" style="display:none"></div> 
             <ol id="messages" class="chat__messages"></ol>
 
             <div class="chat__footer">
@@ -51,8 +53,19 @@
             </li>
         </script>
 
+        <script id="alert-message" type="text/template">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Caution!</strong> {{message}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </script>
+
         <script src="/socket.io/socket.io.js"></script>
         <script src="./js/lib/jquery-3.3.1.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
         <script src="./js/lib/moment.js"></script>
         <script src="./js/lib/mustache.js"></script>
         <script src="./js/lib/deparam.js"></script>
