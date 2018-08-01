@@ -41,6 +41,11 @@ class Users {
         var roomName = this.users.map((user) => user.room);
         return _.uniq(roomName);
     }
+
+    isNameAlreadyInRoom (name, room) {
+        var users = this.getUserNameList(room);
+        return users.indexOf(name) > -1;
+    }
 }
 
 module.exports = {

@@ -24,18 +24,22 @@ io.on("connection", (socket) => {
         if (!isRealString(params.displayName) || !isRealString(params.roomName)){
             callback("Display name or room name are not valid.");
         }
+        else if (users.isNameAlreadyInRoom(params.displayName, params.roomName)){
+            callback("This name is already used by somebody in this room.");
+        }
+        else {
+            socket.join(params.roomName);
+            users.removeUser(socket.id);
+            users.addUser(socket.id, params.displayName, params.roomName);
 
-        socket.join(params.roomName);
-        users.removeUser(socket.id);
-        users.addUser(socket.id, params.displayName, params.roomName);
-
-        io.to(params.roomName).emit("updateUserList", users.getUserNameList(params.roomName));
-        socket.emit("newMessage", generateMessage("Admin", "Welcome to the chat app!"));
-        socket.broadcast
-            .to(params.roomName)
-            .emit("newMessage", generateMessage("Admin", `${params.displayName} join the chat!`));
-        
-        callback();
+            io.to(params.roomName).emit("updateUserList", users.getUserNameList(params.roomName));
+            socket.emit("newMessage", generateMessage("Admin", "Welcome to the chat app!"));
+            socket.broadcast
+                .to(params.roomName)
+                .emit("newMessage", generateMessage("Admin", `${params.displayName} join the chat!`));
+            
+            callback();
+        }
     });
 
     socket.on("createMessage", (message, callback) => {

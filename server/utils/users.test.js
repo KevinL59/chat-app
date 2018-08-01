@@ -83,4 +83,16 @@ describe("Users", () => {
         expect(roomNameList.length).toBe(2);
         expect(roomNameList).toEqual(["Node Course", "React Course"]);
     });
+
+    it("should return true because the name already exists in NodeJs Course", () => {
+        var isAlreadyExist = users.isNameAlreadyInRoom("Nicolas", "Node Course");
+
+        expect(isAlreadyExist).toBe(true);
+    });
+
+    it("should return false because the name doesn't already exist in NodeJs Course", () => {
+        var isAlreadyExist = users.isNameAlreadyInRoom("Kevin", "Node Course");
+
+        expect(isAlreadyExist).toBe(false);
+    });
 });
