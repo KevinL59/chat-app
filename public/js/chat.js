@@ -17,32 +17,16 @@ function scrollToBottom() {
     }
 }
 
-function isRealString (string) {
-    return typeof string == "string" && string.trim().length > 0;
-}
-
 socket.on("connect", function () {
     console.log("New connection to the server");
     var params = jQuery.deparam(window.location.search);
     
-    if (!isRealString(params.roomName)){
-        params.roomName = params.roomNameList || "";
-    }
-    
     socket.emit("join", {
         displayName: params.displayName,
-        roomName: params.roomName.toLowerCase()
+        roomName: params.roomName
     }, function (err) {
         if (err) {
-            var template = jQuery("#alert-message").html();
-            var html = Mustache.render(template, {
-                message: err
-            });
-            jQuery("#alert").html(html);
-            jQuery("#alert").removeAttr("style");
-            setTimeout(function(){
-                window.location.href = "/";
-            }, 4000);  
+            alert(err);
         }
         else {
             console.log("No error.");

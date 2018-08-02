@@ -67,6 +67,15 @@ io.on("connection", (socket) => {
         callback();
     });
 
+    socket.on("isUserAlreadyInRoom", (params, callback) => {
+        if (users.isNameAlreadyInRoom(params.displayName, params.roomName)){
+            callback("This name is already used by somebody in this room.");
+        }
+        else{
+            callback();
+        }
+    });
+
     socket.on("disconnect", () => {
         var user = users.removeUser(socket.id);
 
