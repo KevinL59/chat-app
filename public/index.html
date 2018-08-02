@@ -9,7 +9,7 @@
 </head>
 <body class="centered-form">
     <div class="centered-form__form">
-        <form action="chat.html">
+        <form id="join-form" action="chat.html">
             <div class="form-field">
                 <h3>Join a chat room.</h3>
             </div>
@@ -34,6 +34,15 @@
             </div>
         </form>
     </div>
+
+    <script id="alert-message" type="text/template">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Caution!</strong> {{message}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </script>
 
     <script src="/socket.io/socket.io.js"></script>
     <script src="./js/lib/jquery-3.3.1.min.js"></script>
