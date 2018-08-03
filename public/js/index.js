@@ -6,10 +6,25 @@ function isRealString (string) {
 }
 
 function fireAlert (message) {
-    var template = jQuery("#alert-message").html();
-    var html = Mustache.render(template, {message});
-    jQuery("#alert").html(html);
-    jQuery("#alert").removeAttr("style");
+    var template = jQuery("#alert-modal").html();
+    // var template = jQuery("#alert-message").html();
+    var alert = Mustache.render(template, {
+        title: "Woaaa! Not so fast",
+        message
+    });
+    
+    jQuery("#alert").html(alert);
+    jQuery("#modal").modal({
+        keyboard: true
+    });
+
+    // var alertDiv = jQuery("#alert").append(alert);
+    // alertDiv.hide().removeClass("hidden").slideDown();
+    // jQuery(".page-alert .close").click(function(e) {
+    //     e.preventDefault();
+    //     alertDiv.slideUp();
+    //     alertDiv.html("");
+    // });
 }
 
 socket.on("connect", function () {
@@ -22,7 +37,7 @@ socket.on("connect", function () {
                     roomSelect.append(jQuery(`<option value="${name}"></option>`).text(name));
                 });
                 jQuery("#room-name-select").removeAttr("style");
-                jQuery("#room-name-label").text("Or name of the new room");
+                jQuery("#room-name-label").text("Or give a name for a new room");
             }
         }
         else {
@@ -34,7 +49,7 @@ socket.on("connect", function () {
 jQuery("#join-form").on("submit", function (event) {
     event.preventDefault();
 
-    var displayName = jQuery("[name=displayName]").val();
+    var userName = jQuery("[name=userName]").val();
     var roomNameList = jQuery("[name=roomNameList]").val();
     var roomName = jQuery("[name=roomName]").val();
 
@@ -44,19 +59,22 @@ jQuery("#join-form").on("submit", function (event) {
         roomName = roomNameList || "";
     }
 
-    if (!isRealString(displayName) || !isRealString(roomName)){
-        fireAlert("Display name or room name are not valid.");
+    if (!isRealString(userName)){
+        fireAlert("Your user name is not valid or empty.");
+    }
+    else if (!isRealString(roomName)){ 
+        fireAlert("Your room name is not valid or empty.");
     }
     else {
         socket.emit("isUserAlreadyInRoom",{
-            displayName,
+            userName,
             roomName: roomName.toLowerCase()
         }, function (errorMessage) {
             if (errorMessage) {
-                fireAlert("This userName is already used in this room.");
+                fireAlert("This username is already used by someone in this room.");
             }
             else {
-                window.location.href = `/chat.html?displayName=${displayName}&roomName=${roomName.toLowerCase()}`;
+                window.location.href = `/chat.html?userName=${userName}&roomName=${roomName.toLowerCase()}`;
             }
         });
     }

@@ -9,7 +9,8 @@
     
 </head>
 <body class="index">
-    <div id="alert" style="display:none"></div>
+    <!-- class="hidden" -->
+    <div id="alert"></div>
     <div class="centered-form">
         <div class="centered-form__form">
             <form id="join-form">
@@ -18,12 +19,12 @@
                 </div>
 
                 <div class="form-field">
-                    <label>Display name</label>
-                    <input name="displayName" type="text" autofocus autocomplete="off"/>
+                    <label>User name</label>
+                    <input name="userName" type="text" autofocus autocomplete="off"/>
                 </div>
 
                 <div class="form-field" id="room-name-select" style="display:none">
-                    <label>Select an existing room</label>
+                    <label>Pick up an existing room</label>
                     <select id="room-name-list" name="roomNameList"> </select>
                 </div>
 
@@ -40,11 +41,29 @@
     </div>
 
     <script id="alert-message" type="text/template">
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            <strong>Caution!</strong> {{message}}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+        <div class="alert alert-warning page-alert fade show" role="alert">
+            <strong>{{title}}!</strong> {{message}}
+            <button type="button" class="close" aria-label="Close">
+                <span aria-hidden="true">×</span>
             </button>
+        </div>
+    </script>
+
+    <script id="alert-modal" type="text/template">
+        <div class="modal fade" tabindex="-1" role="dialog" id="modal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">{{title}}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>{{message}}</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </script>
 

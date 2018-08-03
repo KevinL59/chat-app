@@ -22,7 +22,7 @@ socket.on("connect", function () {
     var params = jQuery.deparam(window.location.search);
     
     socket.emit("join", {
-        displayName: params.displayName,
+        userName: params.userName,
         roomName: params.roomName
     }, function (err) {
         if (err) {
@@ -82,7 +82,6 @@ jQuery("#message-form").on("submit", function (event) {
     var messageTextBox = jQuery("[name=message]");
 
     socket.emit("createMessage", {
-        from: "User",
         text: messageTextBox.val()
     }, function () {
         messageTextBox.val("");
