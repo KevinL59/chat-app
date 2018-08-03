@@ -1,7 +1,7 @@
 {
-  "name": "chat-app",
-  "version": "1.0.0",
-  "description": "Chat app for udemy courses",
+  "name": "just-chat",
+  "version": "0.0.2",
+  "description": "JustChat application.",
   "main": "server.js",
   "scripts": {
     "start": "node server/server.js",
@@ -13,9 +13,8 @@
   },
   "keywords": [
     "NodeJs",
-    "chat",
-    "udemy",
-    "courses"
+    "JustChat",
+    "app"
   ],
   "author": "Kevin Letupe",
   "license": "ISC",
