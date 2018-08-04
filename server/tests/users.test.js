@@ -1,6 +1,6 @@
 var expect = require("expect");
 
-var {Users} = require("./users");
+var {Users} = require("../utils/users");
 
 describe("Users", () => {
     var users;
