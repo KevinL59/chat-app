@@ -20,13 +20,13 @@
   "license": "ISC",
   "dependencies": {
     "emojis": "^1.0.10",
-    "express": "^4.14.0",
+    "express": "^4.16.3",
     "lodash": "^4.17.10",
-    "moment": "^2.15.1",
-    "socket.io": "^1.4.8"
+    "moment": "^2.22.2",
+    "socket.io": "^2.1.1"
   },
   "devDependencies": {
-    "expect": "^1.20.2",
-    "mocha": "^3.0.2"
+    "expect": "^23.4.0",
+    "mocha": "^5.2.0"
   }
 }

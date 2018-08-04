@@ -40,14 +40,14 @@ describe("Users", () => {
 
         expect(user.id).toBe(userId);
         expect(users.users.length).toBe(2);
-        expect(users).toNotContain(users.users[0]);
+        expect(users).not.toContain(users.users[0]);
     });
 
     it("should not remove user", () => {
         var userId = 99;
         var user = users.removeUser(userId);
 
-        expect(user).toNotExist();
+        expect(user).toBe(undefined);
         expect(users.users.length).toBe(3);
     });
 
@@ -62,7 +62,7 @@ describe("Users", () => {
         var userId = 99;
         var user = users.getUser(userId);
 
-        expect(user).toNotExist();
+        expect(user).toBe(undefined);
     });
 
     it("should return the list of user name for Node Course room.", () => {
