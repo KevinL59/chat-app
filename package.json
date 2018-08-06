@@ -1,7 +1,7 @@
 {
   "name": "just-chat",
   "version": "0.0.2",
-  "description": "JustChat application.",
+  "description": "JustChat application. Develop under MIT License.",
   "main": "server.js",
   "scripts": {
     "start": "node server/server.js",
@@ -14,7 +14,9 @@
   "keywords": [
     "NodeJs",
     "JustChat",
-    "app"
+    "app",
+    "chat",
+    "MIT"
   ],
   "author": "Kevin Letupe",
   "license": "ISC",
