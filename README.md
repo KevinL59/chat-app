@@ -2,7 +2,7 @@
 
 # JustChat Application
 
-![JustChat logo](/public/img/justchat-logo.svg)
+![JustChat logo](/public/img/justchat-logo.png)
 
 *Join, Chat, Quit, Repeat!*
 
@@ -14,4 +14,4 @@ See the [Product Roadmap](https://trello.com/b/wXjoZEEp/justchat-roadmap) for mo
 
 ## License
 
-See [License](LICENSE)
+Under MIT License. See [License](https://github.com/KevinL59/just-chat-app/tree/develop/LICENSE).
