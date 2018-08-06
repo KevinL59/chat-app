@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/KevinL59/just-chat-app.svg)](https://travis-ci.org/KevinL59/just-chat-app)   version 0.2
+[![Build Status](https://travis-ci.org/KevinL59/just-chat-app.svg)](https://travis-ci.org/KevinL59/just-chat-app) v0.2
 
 # JustChat Application
 
@@ -15,3 +15,7 @@ See the [Product Roadmap](https://trello.com/b/wXjoZEEp/justchat-roadmap) for mo
 ## License
 
 Under MIT License. See [License](https://github.com/KevinL59/just-chat-app/tree/develop/LICENSE).
+
+## Acknowledgements
+
+I would like to thank you Andrew Mead. The core of this application comes from the last section of his [awesome course](https://www.udemy.com/the-complete-nodejs-developer-course-2) on Node.js that I strongly recommand. It's also thank to this course that I have today enough Node.js skills to continue working on this application.
