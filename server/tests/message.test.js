@@ -1,6 +1,6 @@
 var expect = require("expect");
 
-var {generateMessage, generateLocationMessage} = require("./message");
+var {generateMessage, generateLocationMessage} = require("../utils/message");
 
 describe("generateMessage", () => {
     it("should generate a correct message", () => {
@@ -11,9 +11,9 @@ describe("generateMessage", () => {
         expect(result.from).toBe(from);
         expect(result.text).toBe(text);
         //Same as 
-        expect(result).toInclude({from, text});
+        expect(result).toMatchObject({from, text});
         
-        expect(result.createdAt).toBeA("number");
+        expect(typeof result.createdAt).toBe("number");
 
     });
 });
@@ -29,9 +29,9 @@ describe("generateLocationMessage", () => {
         expect(result.from).toBe(from);
         expect(result.url).toBe(url);
         //Same as 
-        expect(result).toInclude({from, url});
+        expect(result).toMatchObject({from, url});
         
-        expect(result.createdAt).toBeA("number");
+        expect(typeof result.createdAt).toBe("number");
 
     });
 });
