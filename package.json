@@ -1,7 +1,7 @@
 {
   "name": "just-chat",
-  "version": "0.0.2",
-  "description": "JustChat application. Develop under MIT License.",
+  "version": "1.0.0",
+  "description": "JustChat application. Develop under MIT license.",
   "main": "server.js",
   "scripts": {
     "start": "node server/server.js",
@@ -19,7 +19,7 @@
     "MIT"
   ],
   "author": "Kevin Letupe",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "emojis": "^1.0.10",
     "express": "^4.16.3",
