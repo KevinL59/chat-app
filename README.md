@@ -1,4 +1,5 @@
-[![Build Status](https://travis-ci.org/KevinL59/just-chat-app.svg)](https://travis-ci.org/KevinL59/just-chat-app) v 1.0.0
+[![Build Status](https://travis-ci.org/KevinL59/just-chat-app.svg)](https://travis-ci.org/KevinL59/just-chat-app) ![Version](/public/img/version-1.0.0-blue.svg)
+
 
 # JustChat Application
 
