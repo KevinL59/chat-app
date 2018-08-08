@@ -3,10 +3,13 @@ const http = require("http");
 
 const socketIo = require("socket.io");
 const express  = require("express");
+const slashCommand = require("slash-command");
 
 const {generateMessage, generateLocationMessage} = require("./utils/message");
 const {isRealString} = require("./utils/validation");
 const {Users} = require("./utils/users");
+const {processCommand} = require("./commands/manager");
+
 const publicPath = path.join(__dirname, "../public");
 const port = process.env.PORT || 3000;
 
@@ -74,6 +77,12 @@ io.on("connection", (socket) => {
         else{
             callback();
         }
+    });
+
+    socket.on("slashCommand", (params) => {
+        processCommand(slashCommand(params)).then((result) => {
+            console.log(result);
+        });
     });
 
     socket.on("disconnect", () => {
