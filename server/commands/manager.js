@@ -23,6 +23,6 @@ var processCommand = async (params) => {
     }
 };
 
-module.exports = {
+module.exports = {  
     processCommand
 };

@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server/server.js",
-    "test": "mocha -t 5000 server/**/*.test.js",
+    "test": "jest --config=./jest.config.js --coverage",
     "test-watch": "nodemon --exec 'npm test'"
   },
   "engines": {
@@ -31,6 +31,7 @@
   },
   "devDependencies": {
     "expect": "^23.4.0",
+    "jest": "^23.4.2",
     "mocha": "^5.2.0"
   }
 }
