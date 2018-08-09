@@ -7,6 +7,10 @@ const {weather}      = require("../commands/weather");
 jest.mock("axios");
 jest.mock("../utils/geocoding");
 
+afterEach(() => {
+    geocodeAddress.geocodeAddress.mockRestore();
+    axios.get.mockRestore();
+});
 
 describe("test weather function", () => {
 
@@ -32,9 +36,6 @@ describe("test weather function", () => {
             status: "OK",
             text: "Currently at Hemevillers, France, it's sunny with 21.11°C"
         });
-
-        geocodeAddress.geocodeAddress.mockRestore();
-        axios.get.mockRestore();
     });
 
     it("should return a sentence describing the weather for the given lat/lng", async () => {
@@ -58,8 +59,8 @@ describe("test weather function", () => {
             status: "OK",
             text: "Currently at 49.46 lat - 2.67 lon, it's sunny with 21.11°C"
         });
-        geocodeAddress.geocodeAddress.mockRestore();
-        axios.get.mockRestore();
+        // geocodeAddress.geocodeAddress.mockRestore();
+        // axios.get.mockRestore();
     });
 
     it("should return an error because geocodeAddress function throw an error", async () => {
@@ -78,7 +79,7 @@ describe("test weather function", () => {
         await expect(weather(["pokefpnoanzodjanzdjnaodnpgh"])).rejects.toEqual(
             Error(messageError2)
         );
-        geocodeAddress.geocodeAddress.mockRestore();
+        // geocodeAddress.geocodeAddress.mockRestore();
     });
 
     it("should throw an error because there is a problem while fetching forecastio server.", async () => {

@@ -4,7 +4,7 @@ const errorMessage = "A problem occurs with the weather command. Please contact 
 
 var geocodeAddress = async (address) => {
     const encodedAddress = encodeURIComponent(address);
-    const locationiqPrivateToken = "17cee47a1fb147";
+    const locationiqPrivateToken = process.env.LOCATIONIQ_API_TOKEN;
 
     const locationiqUrl = `https://eu1.locationiq.com/v1/search.php?key=${locationiqPrivateToken}&q=${encodedAddress}&format=json`;
 

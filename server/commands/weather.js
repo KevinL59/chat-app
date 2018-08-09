@@ -2,7 +2,7 @@ const axios = require("axios");
 const {geocodeAddress} = require("../utils/geocoding");
 
 const forecastUrl = "https://api.forecast.io/forecast/";
-const forecastApiKey = "91cc898820c23f594d54fd0efc9ab57a";
+const forecastApiKey = process.env.FORECAST_API_KEY;
 
 const errorMessage = "A problem occurs with the weather command. Please contact the Admin <a href=\"https://github.com/KevinL59\">Kevin L</a>.";
 

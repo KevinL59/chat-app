@@ -1,0 +1,13 @@
+{
+    "development":{
+        "LOCATIONIQ_API_TOKEN": "17cee47a1fb147", 
+        "FORECAST_API_KEY": "91cc898820c23f594d54fd0efc9ab57a",
+        "PORT": 3000
+    },
+    "test":{
+        "LOCATIONIQ_API_TOKEN": "17cee47a1fb147",
+        "FORECAST_API_KEY": "91cc898820c23f594d54fd0efc9ab57a",
+        "DEBUG": true,
+        "PORT": 3000
+    }
+}
