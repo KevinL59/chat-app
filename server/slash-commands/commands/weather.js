@@ -1,5 +1,5 @@
 const axios = require("axios");
-const {geocodeAddress} = require("../utils/geocoding");
+const {geocodeAddress} = require("../../utils/geocoding");
 
 const forecastUrl = "https://api.forecast.io/forecast/";
 const forecastApiKey = process.env.FORECAST_API_KEY;
@@ -35,6 +35,16 @@ const weather = async (params) => {
     }  
 };
 
+const helpMessage = [
+    "/weather command.",
+    "Get weather information for a given address.",
+    "/weather <i>my great address</i>",
+    "or",
+    "/weather <i>lat</i> <i>long</i>",
+    "Example: <strong>/weather Paris France</strong>",
+].join("<br>");
+
 module.exports = {
     weather,
+    helpMessage
 };

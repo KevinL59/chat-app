@@ -2,7 +2,7 @@ const expect = require("expect");
 const axios  = require("axios");
 
 const geocodeAddress = require("../utils/geocoding");
-const {weather}      = require("../commands/weather");
+const {weather}      = require("../slash-commands/commands/weather");
 
 jest.mock("axios");
 jest.mock("../utils/geocoding");

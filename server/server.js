@@ -9,7 +9,7 @@ require("./config/config");
 const {generateMessage, generateLocationMessage} = require("./utils/message");
 const {isRealString} = require("./utils/validation");
 const {Users} = require("./utils/users");
-const {processCommand} = require("./commands/manager");
+const {processCommand} = require("./slash-commands/manager");
 
 const publicPath = path.join(__dirname, "../public");
 

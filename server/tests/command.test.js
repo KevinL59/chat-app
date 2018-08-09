@@ -1,10 +1,10 @@
 var expect = require("expect");
 var slashCommand = require("slash-command");
 
-var {processCommand} = require("../commands/manager");
-var weather = require("../commands/weather");
+var {processCommand} = require("../slash-commands/manager");
+var weather = require("../slash-commands/commands/weather");
 
-jest.mock("../commands/weather");
+jest.mock("../slash-commands/commands/weather");
 
 describe("processCommand tests", () => {
 

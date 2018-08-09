@@ -1,8 +1,4 @@
-const {weather} = require("./weather");
-
-const commandAvailable = {
-    weather
-};
+const {commandAvailable} = require("./command-loader");
 
 var processCommand = async (params) => {
 
@@ -14,7 +10,13 @@ var processCommand = async (params) => {
     }
 
     try {
-        return await commandAvailable[params.command](params.body.split(" "));
+        if (params.subcommands && params.subcommands[0] === "help"){
+            return {
+                status: "OK",
+                text: commandAvailable[params.command].helpMessage
+            };
+        }
+        return await commandAvailable[params.command][params.command](params.body.split(" "));
     } catch (err) {
         return {
             status : "ERROR",
