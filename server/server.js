@@ -79,10 +79,14 @@ io.on("connection", (socket) => {
         }
     });
 
-    socket.on("slashCommand", (params) => {
-        processCommand(slashCommand(params)).then((result) => {
-            console.log(result);
+    socket.on("slashCommand", (params, callback) => {
+        var user = users.getUser(socket.id);
+
+        processCommand(slashCommand(params.text)).then((result) => {
+            io.to(user.room).emit("newMessage", generateMessage(user.name, result.text));
         });
+
+        callback();
     });
 
     socket.on("disconnect", () => {

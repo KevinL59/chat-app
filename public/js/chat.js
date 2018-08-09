@@ -81,9 +81,11 @@ jQuery("#message-form").on("submit", function (event) {
 
     var messageTextBox = jQuery("[name=message]");
 
-    if (messageTextBox.val().trim().startWith("/")){
-        socket.emit("slaskCommand", {
+    if (messageTextBox.val().trim().startsWith("/")){
+        socket.emit("slashCommand", {
             text: messageTextBox.val()
+        }, function () {
+            messageTextBox.val("");
         });
     }
     else {

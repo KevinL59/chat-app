@@ -12,7 +12,8 @@ const weather = async (params) => {
     if (params.length === 2 && params.every(item => !isNaN(parseFloat(item)))) {
         location = {
             latitude: params[0],
-            longitude: params[0]
+            longitude: params[1],
+            address: `${parseFloat(params[0]).toFixed(2)} lat - ${parseFloat(params[1]).toFixed(2)} lon`
         };
     }
     else {
@@ -27,7 +28,7 @@ const weather = async (params) => {
         var tempCelsius = ((response.data.currently.temperature - 32) / 1.8).toFixed(2);
         return {
             status: "OK",
-            text: `Currently, at the address you given, it's ${response.data.currently.summary} with ${tempCelsius}°C`
+            text: `Currently at ${location.address}, it's ${response.data.currently.summary.toLowerCase()} with ${tempCelsius}°C`
         };
     } catch (err) {
         throw new Error(errorMessage);

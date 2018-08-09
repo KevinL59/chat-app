@@ -9,20 +9,13 @@ describe("test geocodeAddress function", () => {
     
     it("should return latitude and longitude", async () => {
         const res = {
-            data:{
-                results: [ 
-                    { 
-                        formatted_address: "45 Rue du Barillet 60190 Hemevillers",
-                        geometry: {
-                            location: {
-                                lat: 49.46409,
-                                lng: 2.673309
-                            }
-                        }
-                    }
-                ],
-                status: "OK"                 
-            }
+            data: [
+                {
+                    display_name: "Hemevillers, France",
+                    lat: 49.46409,
+                    lon: 2.673309           
+                }                               
+            ]
         };
         axios.get.mockResolvedValue(res);
         var address = "45 rue du barillet 60190 Hemevillers";
@@ -32,14 +25,14 @@ describe("test geocodeAddress function", () => {
         });
     });
 
-    it("should not recognize the addres and throw Error", async () => {
-        const res = {
-            data:{
-                results: [],
-                status: "ZERO_RESULTS"                 
+    it("should not recognize the address and throw an error.", async () => {
+        const err = {
+            response:{
+                status: 404,
+                statusText: "Not found address."
             }
         };
-        axios.get.mockResolvedValue(res);
+        axios.get.mockRejectedValue(err);
 
         var fakeAddress = "pefjfnoinojfNHPZORNOfn";
         
@@ -48,14 +41,14 @@ describe("test geocodeAddress function", () => {
         );
     });
 
-    it("should return an error because return status is not OK", async () => {
-        const res = {
-            data:{
-                results: [],
-                status: "OVER_QUERY_LIMIT"                 
+    it("should return an error because the locationiq token is not ok.", async () => {
+        const err = {
+            response:{
+                status: 401,
+                statusText: "Not found address."
             }
         };
-        axios.get.mockResolvedValue(res);
+        axios.get.mockRejectedValue(err);
         
         var address = "45 rue du barillet 60190 Hemevillers";
         

@@ -13,7 +13,8 @@ describe("test weather function", () => {
     it("should return a sentence describing the weather for the given address.", async () => {
         var location = {
             latitude: 49.46409,
-            longitude: 2.673309
+            longitude: 2.673309,
+            address: "Hemevillers, France"
         };
         const res = {
             data:{
@@ -29,7 +30,7 @@ describe("test weather function", () => {
 
         await expect(weather(["45", "rue", "du", "barillet", "60190", "hemevillers"])).resolves.toMatchObject({
             status: "OK",
-            text: "Currently, at the address you given, it's Sunny with 21.11°C"
+            text: "Currently at Hemevillers, France, it's sunny with 21.11°C"
         });
 
         geocodeAddress.geocodeAddress.mockRestore();
@@ -55,7 +56,7 @@ describe("test weather function", () => {
 
         await expect(weather(["49.46409", "2.673309"])).resolves.toMatchObject({
             status: "OK",
-            text: "Currently, at the address you given, it's Sunny with 21.11°C"
+            text: "Currently at 49.46 lat - 2.67 lon, it's sunny with 21.11°C"
         });
         geocodeAddress.geocodeAddress.mockRestore();
         axios.get.mockRestore();
