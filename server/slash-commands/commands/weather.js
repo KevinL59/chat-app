@@ -6,7 +6,7 @@ const forecastApiKey = process.env.FORECAST_API_KEY;
 
 const errorMessage = "A problem occurs with the weather command. Please contact the Admin <a href=\"https://github.com/KevinL59\">Kevin L</a>.";
 
-const weather = async (params) => {
+const action = async (params) => {
     var location = {};
 
     if (params.length === 2 && params.every(item => !isNaN(parseFloat(item)))) {
@@ -35,16 +35,18 @@ const weather = async (params) => {
     }  
 };
 
-const helpMessage = [
-    "/weather command.",
-    "Get weather information for a given address.",
-    "/weather <i>my great address</i>",
-    "or",
-    "/weather <i>lat</i> <i>long</i>",
-    "Example: <strong>/weather Paris France</strong>",
-].join("<br>");
+const help = () => {
+    return [
+        "/weather command.",
+        "Get weather information for a given address.",
+        "/weather <i>my great address</i>",
+        "or",
+        "/weather <i>lat</i> <i>long</i>",
+        "Example: <strong>/weather Paris France</strong>",
+    ].join("<br>");
+};
 
 module.exports = {
-    weather,
-    helpMessage
+    action,
+    help,
 };

@@ -16,7 +16,7 @@ describe("processCommand tests", () => {
             status: "OK"
         };
 
-        weather.weather.mockResolvedValue(returnValue);
+        weather.action.mockResolvedValue(returnValue);
         
         await expect(processCommand(command)).resolves.toMatchObject(returnValue);
     });
@@ -33,7 +33,7 @@ describe("processCommand tests", () => {
     it("should return an status ERROR because the command throw an error.", async () => {
         var command = slashCommand("/weather 45 rue du barillet Hemevillers");
         
-        weather.weather.mockRejectedValue(Error("An error occur during the command"));
+        weather.action.mockRejectedValue(Error("An error occur during the command"));
 
         await expect(processCommand(command)).resolves.toMatchObject({
             status: "ERROR",

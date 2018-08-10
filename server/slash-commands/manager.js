@@ -13,10 +13,10 @@ var processCommand = async (params) => {
         if (params.subcommands && params.subcommands[0] === "help"){
             return {
                 status: "OK",
-                text: commandAvailable[params.command].helpMessage
+                text: commandAvailable[params.command].help()
             };
         }
-        return await commandAvailable[params.command][params.command](params.body.split(" "));
+        return await commandAvailable[params.command].action(params.body.split(" "));
     } catch (err) {
         return {
             status : "ERROR",

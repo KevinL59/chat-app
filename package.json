@@ -24,6 +24,7 @@
     "axios": "^0.18.0",
     "emojis": "^1.0.10",
     "express": "^4.16.3",
+    "implement-js": "0.0.26",
     "lodash": "^4.17.10",
     "moment": "^2.22.2",
     "slash-command": "0.0.52",

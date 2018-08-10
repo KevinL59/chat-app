@@ -2,7 +2,7 @@ const expect = require("expect");
 const axios  = require("axios");
 
 const geocodeAddress = require("../utils/geocoding");
-const {weather}      = require("../slash-commands/commands/weather");
+const weather      = require("../slash-commands/commands/weather");
 
 jest.mock("axios");
 jest.mock("../utils/geocoding");
@@ -32,7 +32,7 @@ describe("test weather function", () => {
         geocodeAddress.geocodeAddress.mockResolvedValue(location);        
         axios.get.mockResolvedValue(res);
 
-        await expect(weather(["45", "rue", "du", "barillet", "60190", "hemevillers"])).resolves.toMatchObject({
+        await expect(weather.action(["45", "rue", "du", "barillet", "60190", "hemevillers"])).resolves.toMatchObject({
             status: "OK",
             text: "Currently at Hemevillers, France, it's sunny with 21.11°C"
         });
@@ -55,7 +55,7 @@ describe("test weather function", () => {
         geocodeAddress.geocodeAddress.mockResolvedValue(location);        
         axios.get.mockResolvedValue(res);
 
-        await expect(weather(["49.46409", "2.673309"])).resolves.toMatchObject({
+        await expect(weather.action(["49.46409", "2.673309"])).resolves.toMatchObject({
             status: "OK",
             text: "Currently at 49.46 lat - 2.67 lon, it's sunny with 21.11°C"
         });
@@ -69,14 +69,14 @@ describe("test weather function", () => {
         
         geocodeAddress.geocodeAddress.mockRejectedValue(Error(messageError1));
 
-        await expect(weather(["45", "rue", "du", "barillet", "60190", "hemevillers"])).rejects.toEqual(
+        await expect(weather.action(["45", "rue", "du", "barillet", "60190", "hemevillers"])).rejects.toEqual(
             Error(messageError1)
         );
         geocodeAddress.geocodeAddress.mockRestore();
 
         geocodeAddress.geocodeAddress.mockRejectedValue(Error(messageError2));
 
-        await expect(weather(["pokefpnoanzodjanzdjnaodnpgh"])).rejects.toEqual(
+        await expect(weather.action(["pokefpnoanzodjanzdjnaodnpgh"])).rejects.toEqual(
             Error(messageError2)
         );
         // geocodeAddress.geocodeAddress.mockRestore();
@@ -96,7 +96,7 @@ describe("test weather function", () => {
             }
         });
 
-        await expect(weather(["45", "rue", "du", "barillet", "60190", "hemevillers"])).rejects.toEqual(
+        await expect(weather.action(["45", "rue", "du", "barillet", "60190", "hemevillers"])).rejects.toEqual(
             Error("A problem occurs with the weather command. Please contact the Admin <a href=\"https://github.com/KevinL59\">Kevin L</a>.")
         );
     });
