@@ -2,21 +2,35 @@ const {commandAvailable} = require("./command-loader");
 
 var processCommand = async (params) => {
 
-    if (!commandAvailable[params.command]){
+    // Command is not available.
+    if (!commandAvailable[params.command]) {
         return {
             status : "ERROR",
             text: `Command ${params.slashcommand} unavailable.`
         };
     }
 
+    // Command is available.
     try {
-        if (params.subcommands && params.subcommands[0] === "help"){
+        // Subcommand is help, so display help message
+        if (params.subcommands && params.subcommands[0] === "help") {
             return {
-                status: "OK",
+                status: "HELP",
                 text: commandAvailable[params.command].help()
             };
         }
-        return await commandAvailable[params.command].action(params.body.split(" "));
+        else if (params.subcommands && params.subcommands[0] === "me") {
+            return {
+                status: "MESSAGE_ME",
+                text: await commandAvailable[params.command].action(params),
+            };
+        }
+        else {
+            return {
+                status: "MESSAGE",
+                text: await commandAvailable[params.command].action(params),
+            };
+        }
     } catch (err) {
         return {
             status : "ERROR",

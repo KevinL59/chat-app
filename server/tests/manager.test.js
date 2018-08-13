@@ -13,18 +13,18 @@ describe("processCommand tests", () => {
 
         const returnValue = {
             text: "test return value",
-            status: "OK"
+            status: "MESSAGE"
         };
 
-        weather.action.mockResolvedValue(returnValue);
+        weather.action.mockResolvedValue("test return value");
         
-        await expect(processCommand(command)).resolves.toMatchObject(returnValue);
+        await expect(processCommand(command)).resolves.toEqual(returnValue);
     });
 
     it("should return an status ERROR because the command is unknowed.", async () => {
         var command = slashCommand("/fakeCommand");
         
-        await expect(processCommand(command)).resolves.toMatchObject({
+        await expect(processCommand(command)).resolves.toEqual({
             status: "ERROR",
             text: `Command ${command.slashcommand} unavailable.`
         });
@@ -35,9 +35,35 @@ describe("processCommand tests", () => {
         
         weather.action.mockRejectedValue(Error("An error occur during the command"));
 
-        await expect(processCommand(command)).resolves.toMatchObject({
+        await expect(processCommand(command)).resolves.toEqual({
             status: "ERROR",
             text: "An error occur during the command"
+        });
+    });
+
+    it("should return object construct for user display only", async () => {
+        const command = slashCommand("/weather/me 45 rue du barillet Hemevillers");
+
+        const returnValue = {
+            text: "This message will be display to the user only!",
+            status: "MESSAGE_ME"
+        };
+
+        weather.action.mockResolvedValue(returnValue.text);
+        
+        await expect(processCommand(command)).resolves.toEqual(returnValue);
+    });
+
+    it("should help subcommand of a command", async () => {
+        const command = slashCommand("/weather/help");
+
+        const text = "help function of the command weather";
+
+        weather.help = jest.fn(() => text);
+        
+        expect(processCommand(command)).resolves.toEqual({
+            status: "HELP",
+            text
         });
     });
 });

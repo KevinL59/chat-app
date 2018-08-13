@@ -6,7 +6,7 @@ const express  = require("express");
 const slashCommand = require("slash-command");
 
 require("./config/config");
-const {generateMessage, generateLocationMessage} = require("./utils/message");
+const {generateMessage, generateLocationMessage, styleMessage} = require("./utils/message");
 const {isRealString} = require("./utils/validation");
 const {Users} = require("./utils/users");
 const {processCommand} = require("./slash-commands/manager");
@@ -82,8 +82,14 @@ io.on("connection", (socket) => {
     socket.on("slashCommand", (params, callback) => {
         var user = users.getUser(socket.id);
 
-        processCommand(slashCommand(params.text)).then((result) => {
-            io.to(user.room).emit("newMessage", generateMessage(user.name, result.text));
+        processCommand(slashCommand(params.text)).then((message) => {
+            if (message.status !== "MESSAGE"){
+                console.log("Bonjour");
+                socket.emit("newMessage", generateMessage("Admin", styleMessage(message.text, message.status)));
+            }
+            else {
+                io.to(user.room).emit("newMessage", generateMessage(user.name, message.text));
+            }
         });
 
         callback();
