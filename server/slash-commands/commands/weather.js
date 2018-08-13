@@ -9,7 +9,8 @@ const errorMessage = "A problem occurs with the weather command. Please contact 
 const action = async (command) => {
     
     if (!command.body) {
-        throw new Error("Your command contains neither an address nor a lat/long tuple. Please try again");    
+        throw new Error(["Your command contains neither an address nor a lat/long tuple.<br>",
+            " Please try again or use /weather/help for more informations about this command."].join(""));    
     }
     
     var location = {};
@@ -40,12 +41,14 @@ const action = async (command) => {
 
 const help = () => {
     return [
-        "/weather command.",
-        "Get weather information for a given address.",
-        "/weather <i>my great address</i>",
+        "Get weather information for a given address:",
+        "/weather [<i>my awesome address</i>]",
         "or",
         "/weather <i>lat</i> <i>long</i>",
+        "",
         "Example: <strong>/weather Paris France</strong>",
+        "",
+        "Use /weather/me to be the only receiver of the weather forecast message."
     ].join("<br>");
 };
 

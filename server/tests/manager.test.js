@@ -12,6 +12,7 @@ describe("processCommand tests", () => {
         const command = slashCommand("/weather 45 rue du barillet Hemevillers");
 
         const returnValue = {
+            command: command.command,
             text: "test return value",
             status: "MESSAGE"
         };
@@ -25,6 +26,7 @@ describe("processCommand tests", () => {
         var command = slashCommand("/fakeCommand");
         
         await expect(processCommand(command)).resolves.toEqual({
+            command: command.command,
             status: "ERROR",
             text: `Command ${command.slashcommand} unavailable.`
         });
@@ -36,6 +38,7 @@ describe("processCommand tests", () => {
         weather.action.mockRejectedValue(Error("An error occur during the command"));
 
         await expect(processCommand(command)).resolves.toEqual({
+            command: command.command,
             status: "ERROR",
             text: "An error occur during the command"
         });
@@ -45,6 +48,7 @@ describe("processCommand tests", () => {
         const command = slashCommand("/weather/me 45 rue du barillet Hemevillers");
 
         const returnValue = {
+            command: command.command,
             text: "This message will be display to the user only!",
             status: "MESSAGE_ME"
         };
@@ -62,6 +66,7 @@ describe("processCommand tests", () => {
         weather.help = jest.fn(() => text);
         
         expect(processCommand(command)).resolves.toEqual({
+            command: command.command,
             status: "HELP",
             text
         });

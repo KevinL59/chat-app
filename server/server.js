@@ -84,8 +84,7 @@ io.on("connection", (socket) => {
 
         processCommand(slashCommand(params.text)).then((message) => {
             if (message.status !== "MESSAGE"){
-                console.log("Bonjour");
-                socket.emit("newMessage", generateMessage("Admin", styleMessage(message.text, message.status)));
+                socket.emit("newMessage", generateMessage(message.command, styleMessage(message.text, message.status)));
             }
             else {
                 io.to(user.room).emit("newMessage", generateMessage(user.name, message.text));
