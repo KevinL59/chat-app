@@ -1,5 +1,7 @@
 var socket = io();
 
+const audio = new Audio("../audio/light.mp3");
+
 function scrollToBottom() {
     // Selectors
     var messages = jQuery("#messages");
@@ -62,6 +64,10 @@ socket.on("newMessage", function (message) {
     msgText.removeAttr("id");
 
     scrollToBottom();
+
+    if(document.visibilityState !== "visible" && message.from !== "Admin"){
+        audio.play();
+    }
 });
 
 socket.on("newLocationMessage", function (message) {
