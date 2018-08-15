@@ -1,6 +1,6 @@
 var expect = require("expect");
 
-var {generateMessage, generateLocationMessage} = require("../utils/message");
+var {generateMessage, generateLocationMessage, styleMessage} = require("../utils/message");
 
 describe("generateMessage", () => {
     it("should generate a correct message", () => {
@@ -33,5 +33,32 @@ describe("generateLocationMessage", () => {
         
         expect(typeof result.createdAt).toBe("number");
 
+    });
+});
+
+describe("styleMessage", () => {
+    it("should style the message in function of the type", () => {
+        let normalMessage = {
+            type: "MESSAGE",
+            text: "Hello World!"
+        };
+        let errorMessage = {
+            text: "Hello World!",
+            type: "ERROR"
+        };
+        let helpMessage = {
+            text: "Hello World!",
+            type: "HELP"
+        };
+
+        expect(styleMessage(normalMessage.text)).toBe("Hello World!");
+
+        expect(styleMessage(normalMessage.text, normalMessage.type)).toBe("Hello World!");
+
+        expect(styleMessage(errorMessage.text, errorMessage.type))
+            .toBe(`<span class="error-message">${errorMessage.text}</span>`);
+
+        expect(styleMessage(helpMessage.text, helpMessage.type))
+            .toBe(`<span class="help-message">${helpMessage.text}</span>`);
     });
 });

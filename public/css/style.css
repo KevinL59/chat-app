@@ -177,9 +177,25 @@
     font-weight: 600;
     margin-right: 10px;
   }
+
+  .message__title h4:first-letter{
+    text-transform:capitalize;
+  }
   
   .message__title span {
     color: #999;
+  }
+
+  .error-message {
+    font-size: 90%;
+    color: maroon;
+    font-style: italic
+  }
+
+  .help-message {
+    font-size: 90%;
+    color: grey;
+    font-style: italic
   }
   
   @media (max-width: 600px) {

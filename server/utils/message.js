@@ -17,7 +17,19 @@ var generateLocationMessage = (from, latitude, longitude) => {
     };
 };
 
+var styleMessage = (text, type=undefined) => {
+    switch (type) {
+    case "HELP":
+        return `<span class="help-message">${text}</span>`;
+    case "ERROR":
+        return `<span class="error-message">${text}</span>`;
+    default:
+        return text;
+    }
+};
+
 module.exports = {
     generateMessage,
-    generateLocationMessage
+    generateLocationMessage,
+    styleMessage
 };
