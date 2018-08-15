@@ -81,11 +81,20 @@ jQuery("#message-form").on("submit", function (event) {
 
     var messageTextBox = jQuery("[name=message]");
 
-    socket.emit("createMessage", {
-        text: messageTextBox.val()
-    }, function () {
-        messageTextBox.val("");
-    });
+    if (messageTextBox.val().trim().startsWith("/")){
+        socket.emit("slashCommand", {
+            text: messageTextBox.val()
+        }, function () {
+            messageTextBox.val("");
+        });
+    }
+    else {
+        socket.emit("createMessage", {
+            text: messageTextBox.val()
+        }, function () {
+            messageTextBox.val("");
+        });
+    }  
 });
 
 var locationButton = jQuery("#send-location");

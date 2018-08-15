@@ -3,12 +3,15 @@ const http = require("http");
 
 const socketIo = require("socket.io");
 const express  = require("express");
+const slashCommand = require("slash-command");
 
-const {generateMessage, generateLocationMessage} = require("./utils/message");
+require("./config/config");
+const {generateMessage, generateLocationMessage, styleMessage} = require("./utils/message");
 const {isRealString} = require("./utils/validation");
 const {Users} = require("./utils/users");
+const {processCommand} = require("./slash-commands/manager");
+
 const publicPath = path.join(__dirname, "../public");
-const port = process.env.PORT || 3000;
 
 var app = express();
 var server = http.createServer(app);
@@ -76,6 +79,21 @@ io.on("connection", (socket) => {
         }
     });
 
+    socket.on("slashCommand", (params, callback) => {
+        var user = users.getUser(socket.id);
+
+        processCommand(slashCommand(params.text)).then((message) => {
+            if (message.status !== "MESSAGE"){
+                socket.emit("newMessage", generateMessage(message.command, styleMessage(message.text, message.status)));
+            }
+            else {
+                io.to(user.room).emit("newMessage", generateMessage(user.name, message.text));
+            }
+        });
+
+        callback();
+    });
+
     socket.on("disconnect", () => {
         var user = users.removeUser(socket.id);
 
@@ -87,6 +105,6 @@ io.on("connection", (socket) => {
     });
 });
 
-server.listen(port, () => {
-    console.log(`Listening on PORT ${port}!`);
+server.listen(process.env.PORT, () => {
+    console.log(`Listening on PORT ${process.env.PORT}!`);
 });
