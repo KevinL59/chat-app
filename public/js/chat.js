@@ -82,6 +82,19 @@ socket.on("newLocationMessage", function (message) {
     scrollToBottom();
 });
 
+socket.on("noticeTyping", function (user) {
+    var typingDiv = jQuery("#typing-info");
+    
+    typingDiv.html(`<p>${user} is typing.</p>`);
+    setTimeout(()=>{
+        typingDiv.html("");
+    }, 5000);
+});
+
+jQuery("#message-input").on("input", function (event) {
+    socket.emit("isTyping");
+});
+
 jQuery("#message-form").on("submit", function (event) {
     event.preventDefault();
 

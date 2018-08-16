@@ -94,6 +94,13 @@ io.on("connection", (socket) => {
         callback();
     });
 
+    socket.on("isTyping", () => {
+        var user = users.getUser(socket.id);
+        socket.broadcast
+            .to(user.room)
+            .emit("noticeTyping", user.name);
+    });
+
     socket.on("disconnect", () => {
         var user = users.removeUser(socket.id);
 
