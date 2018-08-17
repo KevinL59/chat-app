@@ -2,6 +2,9 @@ var socket = io();
 
 const audio = new Audio("../audio/light.mp3");
 
+var userTyping = new Set();
+var isTyping = false;
+
 function scrollToBottom() {
     // Selectors
     var messages = jQuery("#messages");
@@ -16,6 +19,23 @@ function scrollToBottom() {
     var lastMessageHeight = newMessage.prev().innerHeight();
     if(clientHeight + scrollTop + newMessageHeight + lastMessageHeight >= scrollHeight){
         messages.scrollTop(scrollHeight);
+    }
+}
+
+function renderTypingInfos () {
+    var typingDiv = jQuery("#typing-info");
+
+    var userTypingArray = Array.from(userTyping);
+
+    if (userTypingArray.length === 0) {
+        typingDiv.html("");
+    }
+    else if (userTypingArray.length === 1) {
+        typingDiv.html(`<p>${userTypingArray.join("")} is typing.</p>`);
+    }
+    else {
+        var typingString = userTypingArray.slice(0, (userTypingArray.length - 1)).join(", ");
+        typingDiv.html(`<p>${typingString} and ${userTypingArray[userTypingArray.length - 1]} are typing.</p>`);
     }
 }
 
@@ -65,6 +85,9 @@ socket.on("newMessage", function (message) {
 
     scrollToBottom();
 
+    userTyping.delete(message.from);
+    renderTypingInfos();
+
     if(document.visibilityState !== "visible" && message.from !== "Admin"){
         audio.play();
     }
@@ -82,6 +105,26 @@ socket.on("newLocationMessage", function (message) {
     scrollToBottom();
 });
 
+socket.on("noticeTyping", function (user) {
+    userTyping.add(user);
+    renderTypingInfos();
+
+    setTimeout(()=>{
+        userTyping.delete(user);
+        renderTypingInfos();
+    }, 15000);
+});
+
+jQuery("#message-input").on("input", function () {
+    if (!isTyping) {
+        isTyping = true;
+        socket.emit("isTyping");
+    } 
+    setTimeout(() => {
+        isTyping = false;
+    }, 15000);
+});
+
 jQuery("#message-form").on("submit", function (event) {
     event.preventDefault();
 
@@ -91,6 +134,7 @@ jQuery("#message-form").on("submit", function (event) {
         socket.emit("slashCommand", {
             text: messageTextBox.val()
         }, function () {
+            isTyping = false;
             messageTextBox.val("");
         });
     }
@@ -98,6 +142,7 @@ jQuery("#message-form").on("submit", function (event) {
         socket.emit("createMessage", {
             text: messageTextBox.val()
         }, function () {
+            isTyping = false;
             messageTextBox.val("");
         });
     }  
