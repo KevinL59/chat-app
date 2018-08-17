@@ -39,6 +39,23 @@ function renderTypingInfos () {
     }
 }
 
+function setAutocomplete (emojisKey, commandName) {
+    jQuery("#message-input").atwho({
+        at: ":",
+        data: emojisKey,
+        displayTpl: "<li>${name} <img src='../img/emojis/${name}.png' height='20' width='20' class='emoji'/></li>",
+        insertTpl: ":${name}:",
+        delay: 400,
+        limit: 10
+    }).atwho({
+        at: "/",
+        data: commandName,
+        // displayTpl: "${name}",
+        insertTpl: "/${name}",
+        maxLen: 2,
+    });
+}
+
 socket.on("connect", function () {
     console.log("New connection to the server");
     var params = jQuery.deparam(window.location.search);
@@ -46,12 +63,13 @@ socket.on("connect", function () {
     socket.emit("join", {
         userName: params.userName,
         roomName: params.roomName
-    }, function (err) {
-        if (err) {
-            alert(err);
+    }, function (data) {
+        if (data.err) {
+            alert(data.err);
         }
         else {
-            console.log("No error.");
+            console.log(data.emojis, data.commands);
+            setAutocomplete(data.emojis, data.commands);
         }
     });
 }); 
@@ -168,3 +186,5 @@ locationButton.on("click", function () {
         locationButton.removeAttr("disabled").text("Send location");
     });
 });
+
+// "https://assets-cdn.github.com/images/icons/emoji/" 

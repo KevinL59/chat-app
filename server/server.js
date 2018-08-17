@@ -10,6 +10,7 @@ const {generateMessage, generateLocationMessage, styleMessage} = require("./util
 const {isRealString} = require("./utils/validation");
 const {Users} = require("./utils/users");
 const {processCommand} = require("./slash-commands/manager");
+const {emojiKeyLoader, commandNameLoader} = require("./utils/autocomplete-loader");
 
 const publicPath = path.join(__dirname, "../public");
 
@@ -25,10 +26,10 @@ io.on("connection", (socket) => {
 
     socket.on("join", (params, callback) => {
         if (!isRealString(params.userName) || !isRealString(params.roomName)){
-            callback("Display name or room name are not valid.");
+            callback({err: "Display name or room name are not valid."});
         }
         else if (users.isNameAlreadyInRoom(params.userName, params.roomName)){
-            callback("This name is already used by somebody in this room.");
+            callback({err: "This name is already used by somebody in this room."});
         }
         else {
             socket.join(params.roomName);
@@ -41,7 +42,10 @@ io.on("connection", (socket) => {
                 .to(params.roomName)
                 .emit("newMessage", generateMessage("Admin", `${params.userName} join the chat!`));
             
-            callback();
+            callback({
+                emojis: emojiKeyLoader(),
+                commands: commandNameLoader()
+            });
         }
     });
 

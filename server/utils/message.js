@@ -4,7 +4,7 @@ var emojis = require("emojis");
 var generateMessage = (from, text) => {
     return {
         from,
-        text: emojis.html(text, "./img/emojis/"),
+        text: emojis.html(text, "https://assets-cdn.github.com/images/icons/emoji/"),
         createdAt: moment().valueOf()
     };
 };
